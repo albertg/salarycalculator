@@ -2,14 +2,14 @@
 
 namespace Quantum.OS.Remuneration.Library {
     public class TaxComponent : ITaxComponent {
-        public TaxComponent(double yearlyPay, double yearlySec80C, double interestOnHousingLoan, double professionalTax) {
-            this.YearlyPay = yearlyPay;
+        public TaxComponent(double yearlyGrossPay, double yearlySec80C, double interestOnHousingLoan, double professionalTax) {
+            this.YearlyGrossPay = yearlyGrossPay;
             this.YearlySec80C = yearlySec80C;
             this.InterestOnHousingLoan = interestOnHousingLoan;
             this.ProfessionalTax = professionalTax;
         }
 
-        public double YearlyPay { get; private set; }
+        public double YearlyGrossPay { get; private set; }
 
         public double YearlySec80C { get; private set; }
 
