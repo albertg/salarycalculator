@@ -1,7 +1,5 @@
 ﻿using Quantum.OS.Remuneration.Library.Interfaces;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Quantum.OS.Remuneration.Library {
     public class TaxCalculator {
@@ -11,10 +9,12 @@ namespace Quantum.OS.Remuneration.Library {
         private double taxPayable;
         private double cessOnTax;
         private ITaxDeductions taxDeductions;
+        private ITaxVariables taxVariables;
 
-        public TaxCalculator(double yearlyGrossPay, ITaxDeductions taxDeductions) {
+        public TaxCalculator(double yearlyGrossPay, ITaxDeductions taxDeductions, ITaxVariables taxVariables) {
             this.yearlyGrossPay = yearlyGrossPay;
             this.taxDeductions = taxDeductions;
+            this.taxVariables = taxVariables;
         }
 
         public double CalculateYearlyTax() {
@@ -34,7 +34,7 @@ namespace Quantum.OS.Remuneration.Library {
         }
 
         private void ReduceStandardDeductionFromGrossPay() {
-            taxableIncome = taxableIncome - TaxComponents.StandardDeduction;
+            taxableIncome = taxableIncome - taxVariables.StandardDeduction;
         }
 
         private void ReduceProfessionalTaxFromGrossPay() {
@@ -56,35 +56,35 @@ namespace Quantum.OS.Remuneration.Library {
         }
 
         private void CalculateTaxFromSlab1() {
-            if (taxableIncome > TaxComponents.Slab1) {
-                if (taxableIncome <= TaxComponents.Slab2) {
+            if (taxableIncome > taxVariables.Slab1) {
+                if (taxableIncome <= taxVariables.Slab2) {
                     taxPayable = 0;
                 }
                 else {
-                    taxPayable = taxPayable + ((TaxComponents.Slab2 - TaxComponents.Slab1) * TaxComponents.TaxSlab1);
+                    taxPayable = taxPayable + ((taxVariables.Slab2 - taxVariables.Slab1) * taxVariables.Slab1TaxRate);
                 }
             }
         }
 
         private void CalculateTaxFromSlab2() {
-            if (taxableIncome > TaxComponents.Slab2) {
-                if (taxableIncome <= TaxComponents.Slab3) {
-                    taxPayable = taxPayable + ((taxableIncome - TaxComponents.Slab2) * TaxComponents.TaxSlab2);
+            if (taxableIncome > taxVariables.Slab2) {
+                if (taxableIncome <= taxVariables.Slab3) {
+                    taxPayable = taxPayable + ((taxableIncome - taxVariables.Slab2) * taxVariables.Slab2TaxRate);
                 }
                 else {
-                    taxPayable = taxPayable + ((TaxComponents.Slab3 - TaxComponents.Slab2) * TaxComponents.TaxSlab2);
+                    taxPayable = taxPayable + ((taxVariables.Slab3 - taxVariables.Slab2) * taxVariables.Slab2TaxRate);
                 }
             }
         }
 
         private void CalculateTaxFromSlab3() {
-            if (taxableIncome > TaxComponents.Slab3) {
-                taxPayable = taxPayable + ((taxableIncome - TaxComponents.Slab3) * TaxComponents.TaxSlab3);
+            if (taxableIncome > taxVariables.Slab3) {
+                taxPayable = taxPayable + ((taxableIncome - taxVariables.Slab3) * taxVariables.Slab3TaxRate);
             }
         }
 
         private void CalculateCessOnTax() {
-            cessOnTax = taxPayable * TaxComponents.CessOnTax;
+            cessOnTax = taxPayable * taxVariables.CessOnTax;
         }
     }
 }

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Quantum.OS.Remuneration.Library;
 using Quantum.OS.Remuneration.Library.Interfaces;
 
@@ -60,8 +57,9 @@ namespace Remuneration.Lib.Tests {
             double yearlySec80C = 150000;
             double interestOnHousingLoan = 200000;
             double professionalTax = 2400.00;
+            ITaxVariables taxVars = new TaxVariables();
             ITaxDeductions taxDeductions = new TaxDeductions(yearlySec80C, interestOnHousingLoan, professionalTax);
-            TaxCalculator taxCalculator = new TaxCalculator(yearlyPay, taxDeductions);
+            TaxCalculator taxCalculator = new TaxCalculator(yearlyPay, taxDeductions, taxVars);
             double expectedTaxWithCess = 463022;
             double actualTaxWithCess = taxCalculator.CalculateYearlyTax();
             Assert.AreEqual(expectedTaxWithCess, actualTaxWithCess, $"CalculateYearlyTaxAtSlab3WithHousingLoanInterestAndSec80CTest test failed. Expected: {expectedTaxWithCess}, but got: {actualTaxWithCess}");
@@ -73,8 +71,9 @@ namespace Remuneration.Lib.Tests {
             double yearlySec80C = 150000;
             double interestOnHousingLoan = 200000;
             double professionalTax = 2400.00;
+            ITaxVariables taxVars = new TaxVariables();
             ITaxDeductions taxDeductions = new TaxDeductions(yearlySec80C, interestOnHousingLoan, professionalTax);
-            TaxCalculator taxCalculator = new TaxCalculator(yearlyPay, taxDeductions);
+            TaxCalculator taxCalculator = new TaxCalculator(yearlyPay, taxDeductions, taxVars);
             double expectedTaxWithCess = 463022;
             double actualTaxWithCess = taxCalculator.CalculateYearlyTax();
             Assert.AreEqual(expectedTaxWithCess, actualTaxWithCess, $"CalculateYearlyTaxConsistencyTest test failed at first assert. Expected: {expectedTaxWithCess}, but got: {actualTaxWithCess}");
@@ -89,8 +88,9 @@ namespace Remuneration.Lib.Tests {
             double yearlySec80C = 0;
             double interestOnHousingLoan = 0;
             double professionalTax = 2400.00;
+            ITaxVariables taxVars = new TaxVariables();
             ITaxDeductions taxDeductions = new TaxDeductions(yearlySec80C, interestOnHousingLoan, professionalTax);
-            TaxCalculator taxCalculator = new TaxCalculator(yearlyPay, taxDeductions);
+            TaxCalculator taxCalculator = new TaxCalculator(yearlyPay, taxDeductions, taxVars);
             double expectedTaxWithCess = 572222;
             double actualTaxWithCess = taxCalculator.CalculateYearlyTax();
             Assert.AreEqual(expectedTaxWithCess, actualTaxWithCess, $"CalculateYearlyTaxAtSlab3WithoutHousingLoanInterestAndSec80CTest test failed. Expected: {expectedTaxWithCess}, but got: {actualTaxWithCess}");
@@ -102,8 +102,9 @@ namespace Remuneration.Lib.Tests {
             double yearlySec80C = 150000;
             double interestOnHousingLoan = 200000;
             double professionalTax = 2400.00;
+            ITaxVariables taxVars = new TaxVariables();
             ITaxDeductions taxDeductions = new TaxDeductions(yearlySec80C, interestOnHousingLoan, professionalTax);
-            TaxCalculator taxCalculator = new TaxCalculator(yearlyPay, taxDeductions);
+            TaxCalculator taxCalculator = new TaxCalculator(yearlyPay, taxDeductions, taxVars);
             double expectedTaxWithCess = 114700;
             double actualTaxWithCess = taxCalculator.CalculateYearlyTax();
             Assert.AreEqual(expectedTaxWithCess, actualTaxWithCess, $"CalculateYearlyTaxAtSlab2WithHousingLoanInterestAndSec80CTest test failed. Expected: {expectedTaxWithCess}, but got: {actualTaxWithCess}");
@@ -115,8 +116,9 @@ namespace Remuneration.Lib.Tests {
             double yearlySec80C = 0;
             double interestOnHousingLoan = 0;
             double professionalTax = 2400.00;
+            ITaxVariables taxVars = new TaxVariables();
             ITaxDeductions taxDeductions = new TaxDeductions(yearlySec80C, interestOnHousingLoan, professionalTax);
-            TaxCalculator taxCalculator = new TaxCalculator(yearlyPay, taxDeductions);
+            TaxCalculator taxCalculator = new TaxCalculator(yearlyPay, taxDeductions, taxVars);
             double expectedTaxWithCess = 222749;
             double actualTaxWithCess = taxCalculator.CalculateYearlyTax();
             Assert.AreEqual(expectedTaxWithCess, actualTaxWithCess, $"CalculateYearlyTaxAtSlab2WithoutHousingLoanInterestAndSec80CTest test failed. Expected: {expectedTaxWithCess}, but got: {actualTaxWithCess}");
@@ -128,8 +130,9 @@ namespace Remuneration.Lib.Tests {
             double yearlySec80C = 150000;
             double interestOnHousingLoan = 0;
             double professionalTax = 2400.00;
+            ITaxVariables taxVars = new TaxVariables();
             ITaxDeductions taxDeductions = new TaxDeductions(yearlySec80C, interestOnHousingLoan, professionalTax);
-            TaxCalculator taxCalculator = new TaxCalculator(yearlyPay, taxDeductions);
+            TaxCalculator taxCalculator = new TaxCalculator(yearlyPay, taxDeductions, taxVars);
             double expectedTaxWithCess = 0;
             double actualTaxWithCess = taxCalculator.CalculateYearlyTax();
             Assert.AreEqual(expectedTaxWithCess, actualTaxWithCess, $"CalculateYearlyTaxAtSalaryLessThanSlab2WithSec80CTest test failed. Expected: {expectedTaxWithCess}, but got: {actualTaxWithCess}");
@@ -141,8 +144,9 @@ namespace Remuneration.Lib.Tests {
             double yearlySec80C = 150000;
             double interestOnHousingLoan = 0;
             double professionalTax = 2400.00;
+            ITaxVariables taxVars = new TaxVariables();
             ITaxDeductions taxDeductions = new TaxDeductions(yearlySec80C, interestOnHousingLoan, professionalTax);
-            TaxCalculator taxCalculator = new TaxCalculator(yearlyPay, taxDeductions);
+            TaxCalculator taxCalculator = new TaxCalculator(yearlyPay, taxDeductions, taxVars);
             double expectedTaxWithCess = 0;
             double actualTaxWithCess = taxCalculator.CalculateYearlyTax();
             Assert.AreEqual(expectedTaxWithCess, actualTaxWithCess, $"CalculateYearlyTaxAtSalaryLessThanSlab2WithoutSec80CTest test failed. Expected: {expectedTaxWithCess}, but got: {actualTaxWithCess}");
